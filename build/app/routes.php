@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', 'EnquiryController@form');
+
+Route::post('/', 'EnquiryController@submit');
+
 
 // These routes will be cached, if you configure a non-zero bladeCacheExpiry.
 // Full documentation at https://github.com/TheMonkeys/laravel-blade-cache-filter
