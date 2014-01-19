@@ -6,9 +6,12 @@ class EnquiryController extends BaseController
     /** @var EnquiryForm  */
     private $form;
 
+    /** @var array */
     private $errors = array();
 
     /**
+     * Allow us to inject the form for this controller for testing
+     *
      * @param EnquiryForm $form
      */
     public function __construct(EnquiryForm $form)
@@ -21,6 +24,11 @@ class EnquiryController extends BaseController
     }
 
     /**
+     * Our Enquiry form has been submitted,
+     * Run it through validation
+     * If invalid, output form with errors
+     * Otherwise output successful message
+     *
      * @return mixed
      */
     public function submit()

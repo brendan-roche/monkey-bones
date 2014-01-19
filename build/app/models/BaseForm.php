@@ -8,9 +8,6 @@ class BaseForm
     /** @var array $fields */
     protected $fields = array();
 
-    /** @var array $rules */
-    protected $rules = array();
-
     /** @var array $errors */
     protected $errors = array();
 
@@ -41,7 +38,7 @@ class BaseForm
     /**
      * @return array
      */
-    private function getRules()
+    protected function getRules()
     {
         $rules = array();
 

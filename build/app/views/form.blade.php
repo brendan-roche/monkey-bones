@@ -4,7 +4,6 @@
 	The Monkeys Test
 @stop
 
-
 @section('body')
 
     <div id="errors">
