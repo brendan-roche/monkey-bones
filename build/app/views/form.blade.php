@@ -16,9 +16,10 @@
 
     @foreach ($fields as $name => $field)
         <p>
+        {{ in_array('required', $field['attributes']) ? '* ' : '' }}
         {{ Form::label($name, $field['label']) }}:
         @if ($field['type'] == 'text')
-            {{ Form::text($name, Input::old($name)) }}
+            {{ Form::text($name, Input::old($name), $field['attributes']) }}
         @elseif ($field['type'] == 'email')
             {{ Form::email($name, Input::old($name)) }}
         @elseif ($field['type'] == 'textarea')

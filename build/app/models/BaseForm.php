@@ -57,6 +57,21 @@ class BaseForm
     }
 
     /**
+     * Return all fields for this form
+     * and add an array of attributes for each form element
+     *
+     * @return array
+     */
+    public function getFieldsForTemplate()
+    {
+        $fields = $this->fields;
+        foreach($fields as &$field) {
+            $field['attributes'] = in_array('required', $field['rules']) ? array('required') : array();
+        }
+        return $fields;
+    }
+
+    /**
      * @return array
      */
     public function getErrors()

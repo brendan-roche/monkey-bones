@@ -49,7 +49,7 @@ class EnquiryController extends BaseController
     public function form()
     {
         return View::make('form', array(
-            'fields' => $this->form->getFields(),
+            'fields' => $this->form->getFieldsForTemplate(),
             'errors' => $this->errors,
         ));
     }
