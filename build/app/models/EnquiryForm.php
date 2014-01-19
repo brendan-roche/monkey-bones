@@ -16,7 +16,7 @@ class EnquiryForm extends BaseForm
         'email' => array(
             'label' => 'Email',
             'type' => 'text',
-            'rules' => array('required'),
+            'rules' => array('required', 'email'),
         ),
         'daytimeContactNumber' => array(
             'label' => 'Daytime contact number',
@@ -37,7 +37,14 @@ class EnquiryForm extends BaseForm
             'label' => 'Address',
             'type' => 'select',
             'options' => array(
-                "ACT","NSW","NT","QLD","SA","TAS","VIC","WA",
+                "ACT" => "ACT",
+                "NSW" => "NSW",
+                "NT" => "NT",
+                "QLD" => "QLD",
+                "SA" => "SA",
+                "TAS" => "TAS",
+                "VIC" => "VIC",
+                "WA" => "WA",
             ),
             'rules' => array('required'),
         ),
@@ -50,7 +57,9 @@ class EnquiryForm extends BaseForm
             'label' => 'Enquiry type',
             'type' => 'select',
             'options' => array(
-                "General enquiry","Product feedback or enquiry","Product complaint",
+                "General enquiry" => "General enquiry",
+                "Product feedback or enquiry" => "Product feedback or enquiry",
+                "Product complaint" => "Product complaint",
             ),
             'rules' => array('required'),
         ),
@@ -80,4 +89,35 @@ class EnquiryForm extends BaseForm
             'rules' => array(),
         ),
     );
+
+    protected $additionalReqs = array('productName', 'productSize', 'useByDate', 'batchCode');
+
+    /**
+     * Checks all fields for correct input
+     * Also checks if user has selected Product complaint for enquiry type
+     * and if so does addtional validation to ensure
+     * 'productName', 'productSize', 'useByDate', 'batchCode' are not empty
+     *
+     * @return bool
+     */
+    public function isValid()
+    {
+        $valid = parent::isValid();
+        if($this->data['enquiryType'] == 'Product complaint') {
+            $data = array();
+            $rules = array();
+            foreach($this->additionalReqs as $name) {
+                $data[$name] = $this->data[$name];
+                $rules[$name] = array('required');
+            }
+            $validator = Validator::make($data, $rules);
+
+            if (!$validator->passes()) {
+                $this->errors += $validator->messages()->all();
+                $valid = false;
+            }
+        }
+
+        return $valid;
+    }
 } 
