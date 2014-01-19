@@ -93,31 +93,22 @@ class EnquiryForm extends BaseForm
     protected $additionalReqs = array('productName', 'productSize', 'useByDate', 'batchCode');
 
     /**
-     * Checks all fields for correct input
-     * Also checks if user has selected Product complaint for enquiry type
-     * and if so does addtional validation to ensure
+     * if a user has selected Product complaint for enquiry type
+     * add additional rules to ensure
      * 'productName', 'productSize', 'useByDate', 'batchCode' are not empty
      *
-     * @return bool
+     * @return array
      */
-    public function isValid()
+    protected function getRules()
     {
-        $valid = parent::isValid();
+        $rules = parent::getRules();
         if($this->data['enquiryType'] == 'Product complaint') {
-            $data = array();
-            $rules = array();
-            foreach($this->additionalReqs as $name) {
-                $data[$name] = $this->data[$name];
-                $rules[$name] = array('required');
-            }
-            $validator = Validator::make($data, $rules);
 
-            if (!$validator->passes()) {
-                $this->errors += $validator->messages()->all();
-                $valid = false;
+            foreach($this->additionalReqs as $name) {
+                $rules[$name] = array('required');
             }
         }
 
-        return $valid;
+        return $rules;
     }
-} 
+}
