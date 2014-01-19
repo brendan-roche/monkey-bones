@@ -24,12 +24,10 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
-	'local' => array('localhost', '*.dev', '*.dev:*', '*.local', '*.localhost.com'),
-	'stage' => array('your-stage-host.com'),
-	'beta' => array('your-beta-host.com'),
-	'production' => array('your-production-host.com'),
-));
+$env = $app->detectEnvironment(function ()
+{
+    return require __DIR__.'/environment.php' ?: 'local';
+});
 
 /*
 |--------------------------------------------------------------------------
