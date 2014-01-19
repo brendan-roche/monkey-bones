@@ -21,12 +21,10 @@
             @endforeach
         </div>
 
-        {{ Form::open(array('url' => '/')) }}
+        {{ Form::open(array('url' => '/', 'id' => 'enquiryForm')) }}
 
         @foreach ($fields as $name => $field)
-        <p>
-            {{ in_array('required', $field['attributes']) ? '* ' : '' }}
-            {{ Form::label($name, $field['label']) }}:
+        <p><span class="{{ in_array('required', $field['attributes']) ? '' : 'hidden' }}">*</span> {{ Form::label($name, $field['label']) }}:
             @if ($field['type'] == 'text')
                 {{ Form::text($name, Input::old($name), $field['attributes']) }}
             @elseif ($field['type'] == 'email')

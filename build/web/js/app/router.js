@@ -1,39 +1,29 @@
 /* dummy */
 define([
-    'backbone', 'app/model/samplemodel', 'app/collection/samplecollection', 'app/app'
-], function (Backbone, DummyModel, DummyModelCollection, DummyAppView) {
+    'backbone',
+    'app/model/enquiryForm',
+    'app/view/enquiryFormView'
+], function (Backbone, enquiryFormModel, enquiryFormView) {
     "use strict";
 
     return Backbone.Router.extend({
 
         initialize: function () {
-            this.messageModel = new DummyModel();
-            this.messageCollection = new DummyModelCollection([
-                this.messageModel,
-                new DummyModel({
-                    name: "Dummy hidden model",
-                    message: "You dont even know that i exist"
-                })
-            ]);
-            this.mainView = new DummyAppView({
-                model: this.messageModel
+            this.enquiryFormModel = new enquiryFormModel();
+
+            this.mainView = new enquiryFormView({
+                model: this.enquiryFormModel
             });
 
             Backbone.history.start();
         },
 
         routes: {
-            "/*": "home",
-            "message/:message": "message"
+            "/*": "home"
         },
 
         home: function () {
             //console.log("home");
-        },
-
-        message: function (message) {
-
-            this.messageModel.set("message", message);
         }
 
     });
