@@ -9,6 +9,8 @@ class EnquiryController extends BaseController
     /** @var array */
     private $errors = array();
 
+    private $success = false;
+
     /**
      * Allow us to inject the form for this controller for testing
      *
@@ -36,11 +38,10 @@ class EnquiryController extends BaseController
         Input::flash();
         if (!$this->form->isValid()) {
             $this->errors = $this->form->getErrors();
-            return $this->form();
         } else {
-            return "Submitted successfully";
+            $this->success = true;
         }
-
+        return $this->form();
     }
 
     /**
@@ -51,6 +52,7 @@ class EnquiryController extends BaseController
         return View::make('form', array(
             'fields' => $this->form->getFieldsForTemplate(),
             'errors' => $this->errors,
+            'success' => $this->success,
         ));
     }
 }
