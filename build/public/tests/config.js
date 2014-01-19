@@ -3,7 +3,7 @@
         "facebookId": "000000000000000",
 
         "local": {
-            "env": ["DEV URL OR PART OF"]
+            "env": ["monkey-bones.dev"]
         },
         "stage": {
             "env": ["STAGE URL OR PART OF"],
@@ -26,7 +26,8 @@
         ],
         "pages": [
             {
-                "url": "../"
+                "url": "../",
+                "tests": [ "page/submit_enquiry_form.js" ]
             },
             {
                 "url": "core/demo/index.html",
